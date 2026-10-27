@@ -1,0 +1,15 @@
+{
+  "siteUrl": "https://gabby-astrologia.pages.dev",
+  "enabledLocales": ["pt-BR"],
+  "calLink": {
+    "pt-BR": "[[PREENCHER: link do Cal.com no formato usuario/evento]]"
+  },
+  "instagramHandle": "[[PREENCHER: usuário do Instagram, sem @]]",
+  "whatsappNumber": "[[PREENCHER: WhatsApp com DDI e DDD, só números, ex. 5521999999999]]",
+  "contactEmail": "[[PREENCHER: e-mail para pedidos de privacidade (LGPD)]]",
+  "analyticsToken": "",
+  "photos": {
+    "hero": "gabby-hero.jpg",
+    "about": ["gabby-sobre-1.jpg", "gabby-sobre-2.jpg"]
+  }
+}

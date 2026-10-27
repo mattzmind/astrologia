@@ -1,0 +1,79 @@
+---
+import { t, type Locale } from '../i18n';
+import { isPreviewMode } from '../lib/mode';
+import { calLinkFor, calPageFor } from '../lib/site';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const c = t(locale);
+const calLink = calLinkFor(locale);
+const calPage = calPageFor(locale);
+---
+
+{
+  calLink ? (
+    <div class="cal-shell" data-cal-inline={calLink} data-state="idle">
+      <p class="cal-loading" aria-live="polite">
+        {c.ui.calendarLoading}
+      </p>
+      <div class="cal-target" data-cal-target />
+      <p class="cal-fallback" data-cal-fallback>
+        {c.ui.calendarFallbackHint}
+        <a class="btn btn--secondary" href={calPage}>
+          {c.ui.openCalendar}
+        </a>
+      </p>
+    </div>
+  ) : (
+    isPreviewMode() && <p class="cal-missing">{c.ui.calendarMissing}</p>
+  )
+}
+
+<script>
+  import { mountInline } from '../scripts/cal';
+  for (const shell of document.querySelectorAll<HTMLElement>('[data-cal-inline]')) mountInline(shell);
+</script>
+
+<style>
+  .cal-shell {
+    position: relative;
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: var(--space-3);
+  }
+  .cal-target {
+    min-height: 34rem;
+  }
+  .cal-loading {
+    position: absolute;
+    inset: var(--space-6) 0 auto;
+    text-align: center;
+    color: var(--color-earth);
+  }
+  .cal-fallback {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    margin: var(--space-4) 0 var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-earth);
+  }
+  .cal-shell:not([data-state='idle'], [data-state='loading']) .cal-loading,
+  .cal-shell[data-state='ready'] .cal-fallback {
+    display: none;
+  }
+  .cal-shell[data-state='failed'] .cal-target {
+    min-height: 0;
+  }
+  .cal-missing {
+    padding: var(--space-6);
+    border: 2px dashed var(--color-earth);
+    border-radius: var(--radius);
+    text-align: center;
+  }
+</style>

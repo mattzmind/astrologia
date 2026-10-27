@@ -1,0 +1,49 @@
+/* Design tokens — see SPEC section 5. Light theme only in V1. */
+:root {
+  /* Palette */
+  --color-bg: #f5ede0; /* Areia */
+  --color-surface: #fbf7f0; /* Linho */
+  --color-ink: #3a2e26; /* Café */
+  --color-earth: #7a5a43; /* Terra */
+  --color-forest: #4e6b4a; /* Mata Atlântica */
+  --color-forest-dark: #3d5639;
+  --color-sage: #a9bc9c; /* Sálvia */
+  --color-gold: #c9a24b; /* Dourado — accents only, never body text */
+  --color-lavender: #bba8d6; /* Lavanda — accents only */
+  --color-sunset: #e9b8a2; /* Pôr do sol — use sparingly */
+  --color-on-forest: #ffffff;
+
+  /* Type */
+  --font-heading: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+  --font-body: 'DM Sans Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --text-base: 1.0625rem; /* 17px */
+  --text-sm: 0.9375rem;
+  --text-lg: 1.1875rem;
+  --text-h3: 1.375rem;
+  --text-h2: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
+  --text-h1: clamp(2.25rem, 1.6rem + 3vw, 3.75rem);
+  --leading: 1.65;
+
+  /* Space & shape */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --gutter: 1rem;
+  --max-width: 68rem;
+  --radius: 1.25rem;
+  --radius-pill: 999px;
+  --shadow: 0 1px 2px rgb(58 46 38 / 0.06), 0 8px 24px rgb(58 46 38 / 0.08);
+  --mobile-bar-height: 4.5rem;
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --gutter: 2rem;
+    --text-base: 1.125rem; /* 18px */
+  }
+}

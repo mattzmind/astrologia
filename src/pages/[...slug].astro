@@ -1,0 +1,29 @@
+---
+// Every page for every enabled locale comes from this one route: /, /sobre, /contato,
+// /privacidade, and (when English is on) /en, /en/about, … Slugs come from each
+// locale's `routes` in src/content/site.<locale>.json.
+import type { GetStaticPaths } from 'astro';
+import { PAGE_KEYS, enabledLocales, localizedPath, type Locale, type PageKey } from '../i18n';
+import AboutPage from '../templates/AboutPage.astro';
+import ContactPage from '../templates/ContactPage.astro';
+import HomePage from '../templates/HomePage.astro';
+import PrivacyPage from '../templates/PrivacyPage.astro';
+
+export const getStaticPaths = (() =>
+  enabledLocales.flatMap((locale) =>
+    PAGE_KEYS.map((page) => ({
+      params: { slug: localizedPath(locale, page).slice(1) || undefined },
+      props: { locale, page },
+    })),
+  )) satisfies GetStaticPaths;
+
+interface Props {
+  locale: Locale;
+  page: PageKey;
+}
+const { locale, page } = Astro.props;
+const templates = { home: HomePage, about: AboutPage, contact: ContactPage, privacy: PrivacyPage };
+const Template = templates[page];
+---
+
+<Template locale={locale} />

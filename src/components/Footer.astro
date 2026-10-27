@@ -1,0 +1,80 @@
+---
+import { fmt, localizedPath, t, type Locale } from '../i18n';
+import { contactLinks } from '../lib/site';
+import Wordmark from './Wordmark.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const c = t(locale);
+const links = contactLinks(locale);
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wave-band" aria-hidden="true"></div>
+  <div class="container footer-inner">
+    <Wordmark locale={locale} />
+    <nav aria-label={c.a11y.footerNav}>
+      <ul>
+        {
+          links.instagramProfile && (
+            <li>
+              <a href={links.instagramProfile} target="_blank" rel="noopener">
+                {c.footer.instagramLabel}
+                <span class="visually-hidden">{c.a11y.newTab}</span>
+              </a>
+            </li>
+          )
+        }
+        {
+          links.whatsapp && (
+            <li>
+              <a href={links.whatsapp} target="_blank" rel="noopener">
+                {c.footer.whatsappLabel}
+                <span class="visually-hidden">{c.a11y.newTab}</span>
+              </a>
+            </li>
+          )
+        }
+        <li><a href={localizedPath(locale, 'privacy')}>{c.footer.privacyLink}</a></li>
+      </ul>
+    </nav>
+    <p class="disclaimer">{c.footer.disclaimer}</p>
+    <p class="copyright">{fmt(c.footer.copyright, { year, name: c.meta.siteName })}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-surface);
+  }
+  .footer-inner {
+    display: grid;
+    gap: var(--space-4);
+    padding-block: var(--space-7);
+    font-size: var(--text-sm);
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  a {
+    display: inline-block;
+    padding-block: var(--space-2);
+  }
+  .disclaimer {
+    max-width: 44rem;
+    color: var(--color-earth);
+    margin: 0;
+  }
+  .copyright {
+    margin: 0;
+    color: var(--color-earth);
+  }
+</style>

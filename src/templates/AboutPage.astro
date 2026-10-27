@@ -1,0 +1,94 @@
+---
+import BookButton from '../components/BookButton.astro';
+import Leaf from '../components/art/Leaf.astro';
+import Photo from '../components/Photo.astro';
+import { t, type Locale } from '../i18n';
+import Base from '../layouts/Base.astro';
+import { isPreviewMode } from '../lib/mode';
+import { shown } from '../lib/placeholder';
+import { settings } from '../lib/settings';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const c = t(locale);
+const a = c.about;
+const preview = isPreviewMode();
+const paragraphs = shown(a.paragraphs, preview);
+const approach = shown(a.approach, preview);
+const [firstPhoto, secondPhoto] = settings.photos.about;
+---
+
+<Base locale={locale} page="about">
+  <section class="section about-intro">
+    <Leaf class="about-leaf" />
+    <div class="container about-grid">
+      <Photo file={firstPhoto} alt={a.photoAlts[0] ?? ''} eager class="about-photo" />
+      <div>
+        <h1>{a.title}</h1>
+        <p class="lead">{a.lead}</p>
+        {paragraphs.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  {
+    approach.length > 0 && (
+      <section class="section section--surface" aria-labelledby="abordagem">
+        <div class="container about-grid about-grid--reverse">
+          <div>
+            <h2 id="abordagem">{a.approachTitle}</h2>
+            {approach.map((p) => (
+              <p>{p}</p>
+            ))}
+          </div>
+          {secondPhoto && <Photo file={secondPhoto} alt={a.photoAlts[1] ?? ''} class="about-photo" />}
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section closing">
+    <div class="container">
+      <h2>{a.closingTitle}</h2>
+      <p class="lead">{a.closingText}</p>
+      <BookButton locale={locale} onHome={false} />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .about-intro {
+    position: relative;
+    overflow: hidden;
+  }
+  .about-intro :global(.about-leaf) {
+    position: absolute;
+    width: 14rem;
+    left: -5rem;
+    bottom: -3rem;
+    transform: rotate(20deg);
+  }
+  .about-grid {
+    position: relative;
+    display: grid;
+    gap: var(--space-7);
+    align-items: center;
+  }
+  .about-grid :global(.about-photo) {
+    width: min(100%, 22rem);
+    justify-self: center;
+  }
+  @media (min-width: 56rem) {
+    .about-grid {
+      grid-template-columns: 0.8fr 1.2fr;
+    }
+    .about-grid--reverse {
+      grid-template-columns: 1.2fr 0.8fr;
+    }
+  }
+  .closing {
+    text-align: center;
+  }
+</style>

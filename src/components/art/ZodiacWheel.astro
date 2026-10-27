@@ -1,0 +1,36 @@
+---
+// Simple zodiac wheel line drawing, used where a photo isn't available yet. Decorative.
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+const spokes = Array.from({ length: 12 }, (_, i) => {
+  const angle = (i * Math.PI) / 6;
+  return { x1: 100 + 62 * Math.cos(angle), y1: 100 + 62 * Math.sin(angle), x2: 100 + 92 * Math.cos(angle), y2: 100 + 92 * Math.sin(angle) };
+});
+const dots = Array.from({ length: 12 }, (_, i) => {
+  const angle = (i * Math.PI) / 6 + Math.PI / 12;
+  return { cx: 100 + 77 * Math.cos(angle), cy: 100 + 77 * Math.sin(angle) };
+});
+---
+
+<svg class:list={['wheel', className]} viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+  <g fill="none" stroke="currentColor" stroke-width="1.5">
+    <circle cx="100" cy="100" r="92" />
+    <circle cx="100" cy="100" r="62" />
+    <circle cx="100" cy="100" r="30" stroke-dasharray="2 5" />
+    {spokes.map((s) => <line {...s} />)}
+  </g>
+  {dots.map((d) => <circle {...d} r="2.5" class="wheel-dot" />)}
+  <path class="wheel-star" d="M100 82c.5 9 4.5 15 18 18-13.5 3-17.5 9-18 18-.5-9-4.5-15-18-18 13.5-3 17.5-9 18-18Z" />
+</svg>
+
+<style>
+  .wheel {
+    color: var(--color-earth);
+  }
+  .wheel-dot,
+  .wheel-star {
+    fill: var(--color-gold);
+  }
+</style>

@@ -1,0 +1,10 @@
+{
+  "siteUrl": "https://gabby-teste.example",
+  "enabledLocales": ["pt-BR"],
+  "calLink": { "pt-BR": "gabby-teste/leitura" },
+  "instagramHandle": "gabby.teste",
+  "whatsappNumber": "5521999999999",
+  "contactEmail": "privacidade@gabby-teste.example",
+  "analyticsToken": "",
+  "photos": { "hero": "gabby-hero.jpg", "about": ["gabby-sobre-1.jpg", "gabby-sobre-2.jpg"] }
+}

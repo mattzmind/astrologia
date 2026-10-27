@@ -1,0 +1,31 @@
+---
+import BookButton from '../components/BookButton.astro';
+import { DEFAULT_LOCALE, localizedPath, t } from '../i18n';
+import Base from '../layouts/Base.astro';
+
+const locale = DEFAULT_LOCALE;
+const c = t(locale);
+---
+
+<Base locale={locale} page="notFound">
+  <section class="section">
+    <div class="container not-found">
+      <h1>{c.notFound.title}</h1>
+      <p class="lead">{c.notFound.text}</p>
+      <div class="actions">
+        <a class="btn btn--secondary" href={localizedPath(locale, 'home')}>{c.notFound.back}</a>
+        <BookButton locale={locale} onHome={false} />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .not-found {
+    max-width: 36rem;
+    text-align: center;
+  }
+  .actions {
+    justify-content: center;
+  }
+</style>

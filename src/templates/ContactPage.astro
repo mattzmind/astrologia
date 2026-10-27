@@ -1,0 +1,82 @@
+---
+import BookButton from '../components/BookButton.astro';
+import Star from '../components/art/Star.astro';
+import { t, type Locale } from '../i18n';
+import Base from '../layouts/Base.astro';
+import { isPreviewMode } from '../lib/mode';
+import { shows } from '../lib/placeholder';
+import { contactLinks } from '../lib/site';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const c = t(locale);
+const k = c.contact;
+const links = contactLinks(locale);
+---
+
+<Base locale={locale} page="contact">
+  <section class="section">
+    <div class="container contact">
+      <h1>{k.title}</h1>
+      <p class="lead">{k.intro}</p>
+      {
+        shows(k.replyTime, isPreviewMode()) && (
+          <p class="reply-time">
+            <Star size={14} />
+            {k.replyTime}
+          </p>
+        )
+      }
+      <div class="contact-actions">
+        {
+          links.whatsapp && (
+            <a class="btn btn--primary btn--large" href={links.whatsapp} target="_blank" rel="noopener" data-contact="whatsapp">
+              {k.whatsappLabel}
+              <span class="visually-hidden">{c.a11y.newTab}</span>
+            </a>
+          )
+        }
+        {
+          links.instagramDm && (
+            <a class="btn btn--secondary btn--large" href={links.instagramDm} target="_blank" rel="noopener" data-contact="instagram">
+              {k.instagramLabel}
+              <span class="visually-hidden">{c.a11y.newTab}</span>
+            </a>
+          )
+        }
+        <BookButton locale={locale} onHome={false} variant="secondary" large label={k.bookLabel} />
+        {
+          links.instagramProfile && (
+            <a class="profile-link" href={links.instagramProfile} target="_blank" rel="noopener" data-contact="instagram-profile">
+              {k.instagramProfileLabel}
+              <span class="visually-hidden">{c.a11y.newTab}</span>
+            </a>
+          )
+        }
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact {
+    max-width: 32rem;
+  }
+  .reply-time {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 600;
+  }
+  .contact-actions {
+    display: grid;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+  }
+  .profile-link {
+    justify-self: center;
+    padding: var(--space-2);
+  }
+</style>

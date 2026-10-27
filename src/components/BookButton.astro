@@ -1,0 +1,34 @@
+---
+// "Agendar leitura". On the home page it scrolls to the inline calendar; elsewhere it opens
+// Cal's popup, with the plain cal.com page as the no-JS fallback. Until calLink is filled
+// in, every button points at the home page's booking section.
+import { bookingHref, t, type Locale } from '../i18n';
+import { calLinkFor, calPageFor } from '../lib/site';
+
+interface Props {
+  locale: Locale;
+  onHome: boolean;
+  variant?: 'primary' | 'secondary';
+  large?: boolean;
+  label?: string;
+  class?: string;
+}
+const { locale, onHome, variant = 'primary', large = false, label, class: className } = Astro.props;
+const calLink = calLinkFor(locale);
+const popup = !onHome && calLink ? calLink : undefined;
+const href = popup ? calPageFor(locale) : bookingHref(locale);
+---
+
+<a
+  class:list={['btn', `btn--${variant}`, { 'btn--large': large }, className]}
+  href={href}
+  data-cal-popup={popup}
+  data-book-button
+>
+  {label ?? t(locale).ui.book}
+</a>
+
+<script>
+  import { bindPopupButtons } from '../scripts/cal';
+  bindPopupButtons();
+</script>

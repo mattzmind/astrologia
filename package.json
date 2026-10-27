@@ -1,0 +1,40 @@
+{
+  "name": "gabby-astrologia-site",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && node scripts/check-dist.mjs dist",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "astro check",
+    "lint:text": "node scripts/check-hardcoded-text.mjs",
+    "placeholders": "node scripts/list-placeholders.mjs",
+    "images": "node scripts/make-images.mjs",
+    "test:unit": "vitest run",
+    "build:test": "cross-env SETTINGS_OVERRIDE=tests/fixtures/settings.json ASTRO_OUT_DIR=dist-test astro build && node scripts/check-dist.mjs dist-test --strict",
+    "build:i18n": "cross-env SETTINGS_OVERRIDE=tests/fixtures/settings.json CONTENT_FIXTURES_DIR=tests/fixtures/content ENABLE_LOCALES=pt-BR,en ASTRO_OUT_DIR=dist-i18n astro build && node scripts/check-dist.mjs dist-i18n --strict",
+    "test:e2e": "npm run build:test && npm run build:i18n && playwright test",
+    "lighthouse": "lhci autorun",
+    "qa": "npm run check && npm run lint:text && npm run test:unit && npm run build && npm run test:e2e && npm run lighthouse"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/dm-sans": "^5.3.0",
+    "@fontsource-variable/fraunces": "^5.3.0",
+    "astro": "^7.4.2",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@axe-core/playwright": "^4.14.0",
+    "@lhci/cli": "^0.15.1",
+    "@playwright/test": "^1.64.1",
+    "cross-env": "^10.1.0",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.5"
+  }
+}

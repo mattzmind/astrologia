@@ -1,0 +1,220 @@
+{
+  "language": {
+    "code": "pt-BR",
+    "name": "Português",
+    "short": "PT",
+    "ogLocale": "pt_BR"
+  },
+  "routes": {
+    "home": "",
+    "about": "sobre",
+    "contact": "contato",
+    "privacy": "privacidade",
+    "bookingAnchor": "agendar"
+  },
+  "meta": {
+    "siteName": "Gabby",
+    "tagline": "Astrologia",
+    "ogImageAlt": "Gabby Astrologia — leituras de mapa astral online",
+    "pages": {
+      "home": {
+        "title": "Gabby Astrologia · Leitura de mapa astral online",
+        "description": "Leitura de mapa astral de 2 horas pelo Google Meet, com gravação e relatório escrito. Escolha seu horário e agende direto pelo site."
+      },
+      "about": {
+        "title": "Sobre a Gabby · Gabby Astrologia",
+        "description": "Conheça a Gabby: carioca, apaixonada por astrologia e pelo jeito que o céu ajuda a gente a se entender melhor."
+      },
+      "contact": {
+        "title": "Contato · Gabby Astrologia",
+        "description": "Fale com a Gabby pelo WhatsApp ou Instagram, ou agende sua leitura de mapa astral direto pela agenda online."
+      },
+      "privacy": {
+        "title": "Privacidade · Gabby Astrologia",
+        "description": "Como este site trata seus dados: sem cookies, estatísticas anônimas e agendamentos processados pelo Cal.com."
+      },
+      "notFound": {
+        "title": "Página não encontrada · Gabby Astrologia",
+        "description": "Essa página não existe, mas a sua leitura pode existir."
+      }
+    }
+  },
+  "a11y": {
+    "skipLink": "Pular para o conteúdo",
+    "mainNav": "Navegação principal",
+    "languageNav": "Idioma",
+    "footerNav": "Links do rodapé",
+    "newTab": "(abre em nova aba)",
+    "switchLanguage": "Ver esta página em {language}"
+  },
+  "nav": {
+    "home": "Início",
+    "about": "Sobre",
+    "contact": "Contato"
+  },
+  "ui": {
+    "book": "Agendar leitura",
+    "whatsapp": "Falar no WhatsApp",
+    "openCalendar": "Abrir agenda",
+    "calendarLoading": "Carregando a agenda…",
+    "calendarFallbackHint": "A agenda não abriu?",
+    "calendarMissing": "Agenda ainda não configurada: preencha calLink em settings.json.",
+    "previewBanner": "Prévia: {count} campos ainda para preencher (veja npm run placeholders)."
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Astrologia · Rio de Janeiro",
+      "title": "Seu mapa astral, lido com carinho e verdade.",
+      "subtitle": "Duas horas de conversa pelo Google Meet para entender sua energia, seus ciclos e os caminhos que estão se abrindo pra você.",
+      "photoAlt": "Gabby sorrindo, em luz natural"
+    },
+    "howItWorks": {
+      "title": "Como funciona",
+      "steps": [
+        {
+          "title": "Agende",
+          "text": "Escolha o dia e o horário que funcionam pra você, direto na agenda aqui do site."
+        },
+        {
+          "title": "Envie seus dados de nascimento",
+          "text": "Data, horário e cidade onde você nasceu. Quanto mais exato o horário, mais rica fica a leitura."
+        },
+        {
+          "title": "Leitura de 2h pelo Google Meet",
+          "text": "A gente conversa com calma sobre o seu mapa, e você pode perguntar tudo o que quiser."
+        },
+        {
+          "title": "Receba a gravação e o relatório",
+          "text": "Você fica com a gravação da sessão e um relatório escrito pra reler sempre que quiser."
+        }
+      ]
+    },
+    "session": {
+      "title": "A leitura",
+      "name": "Leitura de mapa astral",
+      "details": [
+        "2 horas de sessão",
+        "Online, pelo Google Meet",
+        "Gravação da sessão",
+        "Relatório escrito"
+      ],
+      "turnaroundLabel": "Relatório entregue em",
+      "turnaround": "[[PREENCHER: prazo de entrega do relatório, ex. até 7 dias]]",
+      "priceLabel": "Investimento",
+      "price": "[[PREENCHER: valor da leitura, ou deixe vazio para não mostrar]]"
+    },
+    "booking": {
+      "title": "Agende sua leitura",
+      "intro": "Tenha em mãos sua data, horário e cidade de nascimento. O horário exato faz diferença: é ele que define o seu ascendente e as casas do mapa. 🌙"
+    },
+    "testimonials": {
+      "title": "Quem já fez",
+      "items": [
+        {
+          "quote": "[[PREENCHER: depoimento 1, com autorização por escrito]]",
+          "author": "[[PREENCHER: nome ou iniciais]]"
+        },
+        {
+          "quote": "[[PREENCHER: depoimento 2, com autorização por escrito]]",
+          "author": "[[PREENCHER: nome ou iniciais]]"
+        },
+        {
+          "quote": "[[PREENCHER: depoimento 3, com autorização por escrito]]",
+          "author": "[[PREENCHER: nome ou iniciais]]"
+        }
+      ]
+    },
+    "faq": {
+      "title": "Perguntas frequentes",
+      "items": [
+        {
+          "question": "Não sei meu horário de nascimento, e agora?",
+          "answer": "Dá uma olhada na sua certidão de nascimento ou pergunta pra sua família. Se mesmo assim não descobrir, me chama no WhatsApp antes de agendar que a gente conversa sobre o melhor caminho."
+        },
+        {
+          "question": "É online?",
+          "answer": "Sim! A leitura acontece pelo Google Meet, então você pode estar em qualquer lugar do mundo. O link chega no seu e-mail assim que você agenda."
+        },
+        {
+          "question": "A sessão é gravada?",
+          "answer": "Sim. Você recebe a gravação pra rever sempre que quiser, junto com o relatório escrito."
+        },
+        {
+          "question": "Quando recebo o relatório?",
+          "answer": "[[PREENCHER: prazo de entrega do relatório depois da sessão]]"
+        },
+        {
+          "question": "Posso remarcar?",
+          "answer": "[[PREENCHER: política de remarcação e cancelamento]]"
+        },
+        {
+          "question": "Preciso acreditar em astrologia?",
+          "answer": "Não precisa! Vem com curiosidade e o coração aberto. A leitura é um espaço de conversa e autoconhecimento, e você leva o que fizer sentido pra você."
+        }
+      ]
+    },
+    "closing": {
+      "title": "Bora olhar pro seu céu?",
+      "text": "Escolhe um horário e vem conversar comigo. ✨"
+    }
+  },
+  "about": {
+    "title": "Oi, eu sou a Gabby",
+    "lead": "Carioca, apaixonada por astrologia, por energia e por gente.",
+    "paragraphs": [
+      "[[PREENCHER: história da Gabby, parágrafo 1]]",
+      "[[PREENCHER: história da Gabby, parágrafo 2]]",
+      "[[PREENCHER: história da Gabby, parágrafo 3]]"
+    ],
+    "photoAlts": ["Gabby em luz natural", "Gabby sorrindo"],
+    "approachTitle": "Como eu leio o seu mapa",
+    "approach": [
+      "[[PREENCHER: a abordagem da Gabby à astrologia e à energia]]"
+    ],
+    "closingTitle": "Vamos conversar?",
+    "closingText": "Se o seu coração disse sim, a agenda tá aberta."
+  },
+  "contact": {
+    "title": "Fala comigo",
+    "intro": "O jeito mais rápido de tirar uma dúvida é pelo WhatsApp. Se você já quer marcar, a agenda tá sempre aberta.",
+    "replyTime": "[[PREENCHER: tempo de resposta, ex. Respondo em até 24h.]]",
+    "whatsappLabel": "Falar no WhatsApp",
+    "whatsappGreeting": "Oi, Gabby! Vim pelo site e queria saber mais sobre a leitura. ✨",
+    "instagramLabel": "Mandar DM no Instagram",
+    "instagramProfileLabel": "Ver o perfil no Instagram",
+    "bookLabel": "Agendar leitura"
+  },
+  "privacy": {
+    "title": "Privacidade",
+    "intro": "Resumo simples e direto de como seus dados são tratados por aqui.",
+    "updatedLabel": "Última atualização: {date}",
+    "updatedAt": "2026-10-27",
+    "sections": [
+      {
+        "heading": "O que este site coleta",
+        "body": "Este site não coleta dados pessoais. Usamos só estatísticas anônimas de visitas (Cloudflare Web Analytics), sem cookies e sem identificar você. As fontes e imagens são servidas pelo próprio site."
+      },
+      {
+        "heading": "Agendamentos",
+        "body": "Quando você agenda uma leitura, seus dados (nome, e-mail, dados de nascimento e respostas do formulário) vão direto para o Cal.com, que cuida do agendamento e cria o evento no Google Agenda com o link do Google Meet. Esses dados são usados só para preparar e realizar a sua leitura."
+      }
+    ],
+    "rights": {
+      "heading": "Seus direitos (LGPD)",
+      "body": "Você pode pedir a qualquer momento para ver, corrigir ou apagar seus dados.",
+      "emailCta": "É só escrever para"
+    }
+  },
+  "notFound": {
+    "title": "Essa página se perdeu no céu",
+    "text": "O endereço pode ter mudado. Que tal voltar pro início?",
+    "back": "Voltar ao início"
+  },
+  "footer": {
+    "disclaimer": "As leituras são um espaço de reflexão e autoconhecimento e não substituem orientação médica, psicológica, jurídica ou financeira.",
+    "privacyLink": "Privacidade",
+    "instagramLabel": "Instagram",
+    "whatsappLabel": "WhatsApp",
+    "copyright": "© {year} {name} Astrologia"
+  }
+}

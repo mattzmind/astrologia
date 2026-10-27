@@ -1,0 +1,166 @@
+---
+import { enabledLocales, fmt, localizedPath, t, type Locale, type PageKey } from '../i18n';
+import BookButton from './BookButton.astro';
+import Wordmark from './Wordmark.astro';
+
+interface Props {
+  locale: Locale;
+  page: PageKey | 'notFound';
+}
+const { locale, page } = Astro.props;
+const c = t(locale);
+const onHome = page === 'home';
+const navItems = (['home', 'about', 'contact'] as const).map((key) => ({
+  key,
+  href: localizedPath(locale, key),
+  label: c.nav[key],
+}));
+// Language switcher keeps the visitor on the equivalent page; hidden while only one locale is on.
+const switchTo = enabledLocales
+  .filter((other) => other !== locale)
+  .map((other) => ({
+    locale: other,
+    href: localizedPath(other, page === 'notFound' ? 'home' : page),
+    short: t(other).language.short,
+    label: fmt(c.a11y.switchLanguage, { language: t(other).language.name }),
+  }));
+---
+
+<a class="skip-link" href="#main">{c.a11y.skipLink}</a>
+<header class="site-header">
+  <div class="container header-inner">
+    <Wordmark locale={locale} />
+    <nav class="main-nav" aria-label={c.a11y.mainNav}>
+      <ul>
+        {
+          navItems.map((item) => (
+            <li>
+              <a href={item.href} aria-current={item.key === page ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    {
+      switchTo.length > 0 && (
+        <nav class="lang-switch" aria-label={c.a11y.languageNav}>
+          {switchTo.map((s) => (
+            <a href={s.href} hreflang={s.locale} lang={s.locale} aria-label={s.label} data-lang-switch>
+              {s.short}
+            </a>
+          ))}
+        </nav>
+      )
+    }
+    <BookButton locale={locale} onHome={onHome} class="header-book" />
+  </div>
+</header>
+
+<div class="mobile-book-bar">
+  <BookButton locale={locale} onHome={onHome} large />
+</div>
+
+<style>
+  .skip-link {
+    position: absolute;
+    left: var(--space-4);
+    top: -10rem;
+    z-index: 100;
+    padding: var(--space-2) var(--space-4);
+    background: var(--color-forest);
+    color: var(--color-on-forest);
+    border-radius: var(--radius-pill);
+  }
+  .skip-link:focus {
+    top: var(--space-2);
+  }
+
+  .site-header {
+    background: rgb(245 237 224 / 0.94);
+    border-bottom: 1px solid rgb(122 90 67 / 0.15);
+    z-index: 50;
+  }
+  .header-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-5);
+    padding-block: var(--space-3);
+  }
+  .main-nav ul {
+    display: flex;
+    gap: var(--space-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .main-nav a {
+    display: inline-block;
+    padding: var(--space-2) var(--space-3);
+    color: var(--color-ink);
+    text-decoration: none;
+    border-radius: var(--radius-pill);
+  }
+  .main-nav a:hover {
+    background: var(--color-surface);
+  }
+  .main-nav a[aria-current='page'] {
+    text-decoration: underline;
+    text-decoration-color: var(--color-gold);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.35em;
+  }
+  .lang-switch a {
+    display: inline-block;
+    padding: var(--space-2) var(--space-3);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    color: var(--color-ink);
+    border: 1px solid var(--color-earth);
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+  }
+
+  /* Phones: header scrolls away; a fixed bottom bar keeps booking one tap away. */
+  .header-inner > :global(.header-book) {
+    display: none;
+  }
+  .main-nav {
+    order: 3;
+    width: 100%;
+  }
+  .main-nav ul {
+    justify-content: space-between;
+  }
+  .mobile-book-bar {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 60;
+    padding: var(--space-3) var(--gutter) calc(var(--space-3) + env(safe-area-inset-bottom));
+    background: rgb(251 247 240 / 0.96);
+    border-top: 1px solid rgb(122 90 67 / 0.15);
+    box-shadow: 0 -6px 20px rgb(58 46 38 / 0.08);
+  }
+
+  @media (min-width: 48rem) {
+    .site-header {
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(8px);
+    }
+    .header-inner > :global(.header-book) {
+      display: inline-flex;
+    }
+    .main-nav {
+      order: 0;
+      width: auto;
+      margin-left: auto;
+    }
+    .mobile-book-bar {
+      display: none;
+    }
+  }
+</style>

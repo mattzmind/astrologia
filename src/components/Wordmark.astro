@@ -1,0 +1,43 @@
+---
+import { localizedPath, t, type Locale } from '../i18n';
+import Star from './art/Star.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const c = t(locale);
+---
+
+<a class="wordmark" href={localizedPath(locale, 'home')}>
+  <span class="wordmark-name">{c.meta.siteName}</span>
+  <Star size={14} class="wordmark-star" />
+  <span class="wordmark-tagline">{c.meta.tagline}</span>
+</a>
+
+<style>
+  .wordmark {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    color: var(--color-ink);
+    text-decoration: none;
+    font-family: var(--font-heading);
+    line-height: 1;
+  }
+  .wordmark:hover {
+    color: var(--color-ink);
+  }
+  .wordmark-name {
+    font-size: 1.75rem;
+    font-weight: 600;
+  }
+  .wordmark-tagline {
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--color-earth);
+  }
+  .wordmark :global(.wordmark-star) {
+    align-self: flex-start;
+  }
+</style>

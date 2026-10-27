@@ -1,0 +1,27 @@
+---
+// Preview builds only: how many [[PREENCHER]] fields are still open.
+import { fmt, t, type Locale } from '../i18n';
+import { isPreviewMode } from '../lib/mode';
+import { collectPlaceholders } from '../lib/placeholder';
+import { settings } from '../lib/settings';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const c = t(locale);
+const count = isPreviewMode() ? collectPlaceholders({ c, settings }).length : 0;
+---
+
+{count > 0 && <p class="preview-banner" role="status">{fmt(c.ui.previewBanner, { count })}</p>}
+
+<style>
+  .preview-banner {
+    margin: 0;
+    padding: var(--space-2) var(--gutter);
+    background: var(--color-lavender);
+    color: var(--color-ink);
+    font-size: var(--text-sm);
+    text-align: center;
+  }
+</style>

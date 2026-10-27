@@ -1,0 +1,75 @@
+---
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/dm-sans';
+import '../styles/tokens.css';
+import '../styles/global.css';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import PreviewBanner from '../components/PreviewBanner.astro';
+import { absoluteUrl, alternates, localizedPath, t, type Locale, type PageKey } from '../i18n';
+import { settings } from '../lib/settings';
+
+interface Props {
+  locale: Locale;
+  page: PageKey | 'notFound';
+}
+const { locale, page } = Astro.props;
+const c = t(locale);
+const meta = c.meta.pages[page];
+const isPage = page !== 'notFound';
+const canonical = isPage ? absoluteUrl(localizedPath(locale, page)) : undefined;
+const hreflangs = isPage ? alternates(page) : [];
+const ogImage = absoluteUrl('/og-default.png');
+const beaconToken = settings.analyticsToken.trim();
+---
+
+<!doctype html>
+<html lang={c.language.code}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{meta.title}</title>
+    <meta name="description" content={meta.description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    {hreflangs.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
+    {!isPage && <meta name="robots" content="noindex" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={`${c.meta.siteName} ${c.meta.tagline}`} />
+    <meta property="og:locale" content={c.language.ogLocale} />
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:description" content={meta.description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={c.meta.ogImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={meta.title} />
+    <meta name="twitter:description" content={meta.description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#F5EDE0" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    {
+      beaconToken && (
+        <script
+          is:inline
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={JSON.stringify({ token: beaconToken })}
+        />
+      )
+    }
+  </head>
+  <body>
+    <PreviewBanner locale={locale} />
+    <Header locale={locale} page={page} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>
