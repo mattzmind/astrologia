@@ -1,6 +1,6 @@
 # Gabby Astrologia — site
 
-A small, fast, mobile-first site in Brazilian Portuguese where Gabby's clients learn how a reading works and book directly through Cal.com. It's built with Astro as a static site and hosted on Cloudflare Pages. It's ready for English, but English is switched off.
+A small, fast, mobile-first site in Brazilian Portuguese where Gabby's clients learn how a reading works and book directly through Cal.com. It's built with Astro as a static site and hosted on Cloudflare (Workers static assets). It's ready for English, but English is switched off.
 
 ## Local development
 
@@ -31,9 +31,9 @@ Anything still unknown is marked `[[PREENCHER: …]]`. To list what's still open
 npm run placeholders
 ```
 
-- **Preview builds** (`npm run dev`, Cloudflare preview branches, or `SHOW_PLACEHOLDERS=1`) show placeholders as-is, plus a lavender banner with the count.
-- **Production builds** leave out anything that still has a placeholder: a testimonial, an FAQ answer, the price, a bio paragraph, or a whole section if all of its items are unfilled. A WhatsApp or Instagram button stays hidden until its setting is filled in.
-- **Launch builds** (the `main` branch on Cloudflare, or `LAUNCH=1`) fail if `calLink` or `contactEmail` is still a placeholder.
+- **Preview builds** (`npm run dev`, Cloudflare builds of any branch other than `main`, or `SHOW_PLACEHOLDERS=1`) show placeholders as-is, plus a lavender banner with the count.
+- **Production builds** (`main`) leave out anything that still has a placeholder: a testimonial, an FAQ answer, the price, a bio paragraph, or a whole section if all of its items are unfilled. A WhatsApp or Instagram button stays hidden until its setting is filled in.
+- **Launch builds** (`LAUNCH=1`) fail if `calLink` or `contactEmail` is still a placeholder. Add `LAUNCH=1` to the Cloudflare build variables when the real domain goes live.
 
 Never invent testimonials, credentials or client stories. Only add quotes Gabby has written permission to use.
 
@@ -77,21 +77,24 @@ The first time, install the test browsers with `npx playwright install chromium 
 
 Cal.com is never contacted during tests: its script is replaced by a stub, or blocked to exercise the fallbacks. A real test booking is a manual launch step (below).
 
-## Deploys (Cloudflare Pages)
+## Deploys (Cloudflare Workers, static assets)
 
-1. Push the repo to GitHub.
-2. In Cloudflare: Workers & Pages → Create → Pages → **Connect to Git** → pick the repo.
-3. Framework preset **Astro**, build command `npm run build`, output directory `dist`. Set the environment variable `NODE_VERSION=24`.
-4. Every push to `main` deploys production. Other branches get preview URLs, with placeholders visible, for Gabby to review.
-5. Custom domains → add the domain. Cloudflare sets up DNS and HTTPS. Then update `siteUrl` in `settings.json`.
-6. Turn on Web Analytics for the site. Either let Cloudflare inject the beacon automatically, or paste the token into `analyticsToken`.
+The repo is `mattzmind/astrologia`, connected to the Cloudflare Worker `astrologia` through Workers Builds. [`wrangler.jsonc`](wrangler.jsonc) tells Cloudflare to serve the static files in `dist/`; there is no server code. Without that file, `wrangler deploy` would try to reconfigure the project.
+
+- Build command: `npm run build`. Deploy command: `npx wrangler deploy`.
+- Every push to `main` deploys production. Builds of other branches upload a preview version (`wrangler versions upload`), with placeholders visible, for Gabby to review.
+- `/sobre` serves `sobre.html`. Unknown paths serve `404.html` with status 404.
+- **Custom domain:** Worker → Settings → Domains & Routes → add the domain. Cloudflare sets up DNS and HTTPS. Then update `siteUrl` in `settings.json` and add `LAUNCH=1` to the build variables.
+- **Analytics:** turn on Web Analytics for the domain and paste the token into `analyticsToken` in `settings.json`.
+
+To deploy by hand: `npx wrangler login`, then `npm run build && npx wrangler deploy`.
 
 ## Accounts setup checklist (all new)
 
 - [ ] **GitHub**: create the repo `gabby-astrologia-site` and push (`git remote add origin …`, then `git push -u origin main`).
 - [ ] **Cal.com** (Gabby's account): connect Google Calendar and Google Meet. Create one event type: 2h, Google Meet location, booking questions for birth date, time and city. Set availability and the language to Portuguese. Copy `user/event` into `calLink`.
 - [ ] **Domain**: buy one through Cloudflare Registrar or any registrar (a `.com.br` needs a CPF/CNPJ).
-- [ ] **Cloudflare**: create Gabby's account and add the developer as a member. Set up Pages (above) and Web Analytics.
+- [ ] **Cloudflare**: Worker `astrologia` connected to the repo (done). Later: move it to Gabby's account or add her as a member, add the domain, turn on Web Analytics.
 
 ## Before launch (manual)
 

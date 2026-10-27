@@ -1,0 +1,14 @@
+// Cloudflare Workers with static assets: serves the static Astro build in dist/.
+// Having this file stops `wrangler deploy` from auto-configuring the project
+// (it would otherwise add the Astro Cloudflare adapter and change the output layout).
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "astrologia",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    // /sobre serves sobre.html; unknown paths serve 404.html with status 404
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

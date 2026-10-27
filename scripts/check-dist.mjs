@@ -2,7 +2,7 @@
 // - every internal link and #anchor resolves to a built file / element id
 // - every page has <html lang>, <title>, a description and an absolute og:image
 // - production builds contain no [[PREENCHER]] markers (--strict forces this check)
-// - launch builds (main branch on Cloudflare, or LAUNCH=1) require calLink and contactEmail
+// - launch builds (LAUNCH=1) require calLink and contactEmail
 import fs from 'node:fs';
 import path from 'node:path';
 import { isLaunchBuild, isPreviewMode } from '../src/lib/mode.ts';

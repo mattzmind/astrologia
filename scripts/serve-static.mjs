@@ -1,4 +1,4 @@
-// Tiny static server that mimics Cloudflare Pages for tests: node scripts/serve-static.mjs <dir> <port>
+// Tiny static server that mimics Cloudflare static assets for tests: node scripts/serve-static.mjs <dir> <port>
 // /sobre → sobre.html, /x/ → x/index.html, unknown paths → 404.html with status 404.
 import fs from 'node:fs';
 import http from 'node:http';

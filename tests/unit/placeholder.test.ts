@@ -36,11 +36,13 @@ describe('build modes', () => {
     expect(isPreviewMode({ SHOW_PLACEHOLDERS: '1' }, false)).toBe(true);
     expect(isPreviewMode({ CF_PAGES_BRANCH: 'feature/sobre' }, false)).toBe(true);
     expect(isPreviewMode({ CF_PAGES_BRANCH: 'main' }, false)).toBe(false);
+    expect(isPreviewMode({ WORKERS_CI_BRANCH: 'feature/sobre' }, false)).toBe(true);
+    expect(isPreviewMode({ WORKERS_CI_BRANCH: 'main' }, false)).toBe(false);
     expect(isPreviewMode({}, false)).toBe(false);
   });
-  it('treats main on Cloudflare (or LAUNCH=1) as a launch build', () => {
-    expect(isLaunchBuild({ CF_PAGES_BRANCH: 'main' })).toBe(true);
+  it('is a launch build only when LAUNCH=1 is set', () => {
     expect(isLaunchBuild({ LAUNCH: '1' })).toBe(true);
-    expect(isLaunchBuild({ CF_PAGES_BRANCH: 'dev' })).toBe(false);
+    expect(isLaunchBuild({ WORKERS_CI_BRANCH: 'main' })).toBe(false);
+    expect(isLaunchBuild({})).toBe(false);
   });
 });
